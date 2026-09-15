@@ -15,7 +15,6 @@ spec:
       labels:
         app: mysql
     spec:
-      serviceAccountName: mysql-sa
       containers:
         - name: mysqldb
           image: mysql:latest
