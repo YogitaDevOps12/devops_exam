@@ -3,7 +3,6 @@ kind: ServiceAccount
 metadata:
   name: mysql-sa
   namespace: default
-  
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -21,7 +20,6 @@ rules:
       - list
       - watch
       - update
-      
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -36,8 +34,7 @@ roleRef:
   kind: ClusterRole
   name: mysql-role
   apiGroup: rbac.authorization.k8s.io
-  
----
+ ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
