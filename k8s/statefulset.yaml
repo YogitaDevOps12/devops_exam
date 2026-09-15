@@ -33,6 +33,13 @@ spec:
                 configMapKeyRef:
                   name: app-config
                   key: MYSQL_DATABASE
+		  resources:
+            requests:
+              memory: "512Mi"   # Minimum guaranteed memory
+              cpu: "500m"      # Minimum guaranteed CPU (500 millicores / 0.50 vCPU)
+            limits:
+              memory: "1Gi"   # Hard ceiling for memory
+              cpu: "1"      # Hard ceiling for CPU (1000 millicores / 1 vCPU)		  
           readinessProbe:
             exec:
               command:
@@ -66,3 +73,33 @@ spec:
         - name: init-script-volume
           configMap:
             name: db-init-script    
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: mysql-sa
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: mysql-role
+rules:
+- apiGroups: [""]
+  resources: ["statefulsets", "services"]
+  verbs: ["get", "list", "watch" ,"update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: mysql-role-binding
+  namespace: default
+subjects:
+- kind: ServiceAccount
+  name: mysql-sa
+  namespace: default
+roleRef:
+  kind: Role
+  name: mysql-role
+  apiGroup: rbac.authorization.k8s.io				
