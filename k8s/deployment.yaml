@@ -25,7 +25,6 @@ spec:
                 echo "waiting for mysql...";
                 sleep 3;
               done
-      serviceAccountName: flask-sa
       containers:
         - name: flask
           image: yg7821/devopsexamapp:v4
@@ -42,12 +41,12 @@ spec:
                secretKeyRef:
                  name: flask-secret
                  key: FLASK_SECRET_KEY
-             name: MYSQL_PASSWORD
-             valueFrom:
-               secretKeyRef:
-                 name: mysql-secret
-                 key: MYSQL_PASSWORD
-           readinessProbe:
+           -  name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_PASSWORD
+          readinessProbe:
             tcpSocket:
               port: port
             initialDelaySeconds: 5
@@ -56,4 +55,4 @@ spec:
             tcpSocket:
               port: port
             initialDelaySeconds: 15
-            periodSeconds: 20  
+            periodSeconds: 20
