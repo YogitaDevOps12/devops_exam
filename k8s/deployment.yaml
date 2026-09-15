@@ -27,7 +27,7 @@ spec:
               done
       containers:
         - name: flask
-          image: yg7821/devopsexamapp:v2
+          image: yg7821/devopsexamapp:v4
           imagePullPolicy: IfNotPresent
           ports:
             - name: port
