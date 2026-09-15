@@ -10,6 +10,8 @@ from flask import render_template_string
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'devops-exam-secret-key')
+csrf = CSRFProtect()
+csrf.init_app(app)
 
 def get_db_connection():
     return mysql.connector.connect(
