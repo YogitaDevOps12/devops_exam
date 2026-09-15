@@ -46,6 +46,13 @@ spec:
                 secretKeyRef:
                   name: mysql-secret
                   key: MYSQL_PASSWORD
+          resources:
+            requests:
+              memory: "512Mi"   # Minimum guaranteed memory
+              cpu: "500m"      # Minimum guaranteed CPU (500 millicores / 0.50 vCPU)
+            limits:
+              memory: "1Gi"   # Hard ceiling for memory
+              cpu: "1"      # Hard ceiling for CPU (1000 millicores / 1 vCPU)                  
           readinessProbe:
             tcpSocket:
               port: port
@@ -56,3 +63,5 @@ spec:
               port: port
             initialDelaySeconds: 15
             periodSeconds: 20
+            
+            
