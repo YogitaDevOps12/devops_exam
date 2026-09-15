@@ -6,7 +6,7 @@ metadata:
   
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
   namespace: default
   name: flask-role
@@ -17,7 +17,7 @@ rules:
   
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
   name: flask-role-binding
   namespace: default
@@ -26,7 +26,7 @@ subjects:
   name: flask-sa
   namespace: default
 roleRef:
-  kind: Role
+  kind: ClusterRole
   name: flask-role
   apiGroup: rbac.authorization.k8s.io   
   
