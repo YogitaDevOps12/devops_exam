@@ -3,6 +3,7 @@ kind: ServiceAccount
 metadata:
   name: flask-sa
   namespace: default
+  
  ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -13,6 +14,7 @@ rules:
 - apiGroups: [""]
   resources: ["pods", "services"]
   verbs: ["get", "list", "watch" ,"update"]
+  
  ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -27,6 +29,7 @@ roleRef:
   kind: ClusterRole
   name: flask-role
   apiGroup: rbac.authorization.k8s.io   
+  
  ---
 apiVersion: apps/v1
 kind: Deployment
