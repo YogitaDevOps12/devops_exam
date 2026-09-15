@@ -1,33 +1,3 @@
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: flask-sa
-  namespace: default
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  namespace: default
-  name: flask-role
-rules:
-- apiGroups: [""]
-  resources: ["pods", "services"]
-  verbs: ["get", "list", "watch" ,"update"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: flask-role-binding
-  namespace: default
-subjects:
-- kind: ServiceAccount
-  name: flask-sa
-  namespace: default
-roleRef:
-  kind: ClusterRole
-  name: flask-role
-  apiGroup: rbac.authorization.k8s.io   
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -77,14 +47,7 @@ spec:
                 secretKeyRef:
                   name: mysql-secret
                   key: MYSQL_PASSWORD
-          resources:
-            requests:
-              memory: "512Mi"   # Minimum guaranteed memory
-              cpu: "500m"      # Minimum guaranteed CPU (500 millicores / 0.50 vCPU)
-            limits:
-              memory: "1Gi"   # Hard ceiling for memory
-              cpu: "1"      # Hard ceiling for CPU (1000 millicores / 1 vCPU)                  
-          readinessProbe:
+           readinessProbe:
             tcpSocket:
               port: port
             initialDelaySeconds: 5
@@ -93,4 +56,4 @@ spec:
             tcpSocket:
               port: port
             initialDelaySeconds: 15
-            periodSeconds: 20      
+            periodSeconds: 20  
