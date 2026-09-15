@@ -25,6 +25,7 @@ spec:
                 echo "waiting for mysql...";
                 sleep 3;
               done
+      serviceAccountName: flask-sa
       containers:
         - name: flask
           image: yg7821/devopsexamapp:v4
