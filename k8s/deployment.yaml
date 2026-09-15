@@ -44,9 +44,9 @@ spec:
                  key: FLASK_SECRET_KEY
              name: MYSQL_PASSWORD
              valueFrom:
-                secretKeyRef:
-                  name: mysql-secret
-                  key: MYSQL_PASSWORD
+               secretKeyRef:
+                 name: mysql-secret
+                 key: MYSQL_PASSWORD
            readinessProbe:
             tcpSocket:
               port: port
