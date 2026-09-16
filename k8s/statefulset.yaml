@@ -38,7 +38,7 @@ spec:
               command:
                 - sh
                 - -c
-                - mysqladmin ping -h 127.0.0.1 -u root -p "$MYSQL_ROOT_PASSWORD"
+                - mysqladmin ping -h 127.0.0.1 -uroot -p"$MYSQL_ROOT_PASSWORD"
             initialDelaySeconds: 20
             periodSeconds: 5
             timeoutSeconds: 10
